@@ -15,7 +15,7 @@ const config: ConfigArray = [
   },
   prettier,
   {
-    ignores: ['dist/**', 'src/generated/**'],
+    ignores: ['dist/**', 'src/generated/**', 'jest.config.js'],
   },
 ];
 export default config;
