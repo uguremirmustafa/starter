@@ -5,6 +5,8 @@
   "main": "dist/index.js",
   "scripts": {
     "dev": "tsx --env-file=.env --watch src/index.ts",
+    "dev:client": "npm run dev --prefix client",
+    "dev:all": "concurrently \"npm run dev\" \"npm run dev:client\"",
     "build": "tsc",
     "start": "node dist/index.js",
     "db:migrate": "node --env-file=.env ./node_modules/.bin/prisma migrate dev",
@@ -43,6 +45,7 @@
     "@types/passport-jwt": "^4.0.1",
     "@types/pg": "^8.11.11",
     "@types/supertest": "^7.2.0",
+    "concurrently": "^9.2.1",
     "eslint": "^10.2.1",
     "eslint-config-prettier": "^10.1.8",
     "jest": "^30.3.0",

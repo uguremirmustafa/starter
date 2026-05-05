@@ -1,6 +1,6 @@
-# TypeScript REST API Starter
+# TypeScript Fullstack Starter
 
-A bulletproof, fully type-safe Express + Prisma starter with JWT auth and Google OAuth2.
+A bulletproof, fully type-safe Express + Prisma API with a React + Vite + TypeScript frontend.
 
 ## Stack
 
@@ -12,49 +12,97 @@ A bulletproof, fully type-safe Express + Prisma starter with JWT auth and Google
 | Auth | JWT + Passport Google | Stateless + social login |
 | Validation | Zod | Schema = types (no duplication) |
 | DB | PostgreSQL | Solid default for most apps |
+| Frontend | React + Vite + TypeScript | Fast HMR, type-safe UI |
+| Routing | React Router v7 | File-based routing, protected routes |
 
 ## Project structure
 
 ```
-src/
-├── config/         # Env vars — validated at startup with Zod
-├── lib/
-│   ├── prisma.ts   # Singleton PrismaClient
-│   └── errors.ts   # Typed error classes
-├── middleware/
-│   ├── errorHandler.ts   # Global error → JSON
-│   ├── requireAuth.ts    # JWT guard + RBAC helper
-│   └── validate.ts       # Zod body/query/params validation
-├── modules/
-│   ├── auth/       # register, login, refresh, logout, Google OAuth
-│   ├── users/      # CRUD with role-based access
-│   └── health/     # liveness + readiness probes
-├── types/          # Shared interfaces, ApiResponse, AppModule
-├── app.ts          # Express factory
-└── index.ts        # Entry point + graceful shutdown
-prisma/
-└── schema.prisma   # User, OAuthAccount, RefreshToken, Role
+starter/
+├── src/                  # Express API
+│   ├── config/           # Env vars — validated at startup with Zod
+│   ├── lib/
+│   │   ├── prisma.ts     # Singleton PrismaClient
+│   │   └── errors.ts     # Typed error classes
+│   ├── middleware/
+│   │   ├── errorHandler.ts   # Global error → JSON
+│   │   ├── requireAuth.ts    # JWT guard + RBAC helper
+│   │   └── validate.ts       # Zod body/query/params validation
+│   ├── modules/
+│   │   ├── auth/         # register, login, refresh, logout, Google OAuth
+│   │   ├── users/        # CRUD with role-based access
+│   │   └── health/       # liveness + readiness probes
+│   ├── types/            # Shared interfaces, ApiResponse, AppModule
+│   ├── app.ts            # Express factory
+│   └── index.ts          # Entry point + graceful shutdown
+├── client/               # React + Vite + TypeScript frontend
+│   ├── src/
+│   │   ├── context/
+│   │   │   └── AuthContext.tsx     # JWT / user state + logout
+│   │   ├── components/
+│   │   │   └── ProtectedRoute.tsx  # Redirects to /login if not authenticated
+│   │   ├── routes/
+│   │   │   ├── public/             # Landing, Login, Register
+│   │   │   └── protected/          # Dashboard (requires auth)
+│   │   ├── App.tsx                 # Router setup
+│   │   └── main.tsx
+│   ├── index.html
+│   ├── vite.config.ts              # /api proxy → Express :3000
+│   └── package.json
+├── prisma/
+│   └── schema.prisma     # User, OAuthAccount, RefreshToken, Role
+└── package.json          # Root scripts (dev, dev:client, dev:all)
 ```
 
 ## Quick start
 
 ```bash
-# 1. Install dependencies
+# 1. Install API dependencies
 npm install
 
-# 2. Copy and fill env
+# 2. Install frontend dependencies
+npm install --prefix client
+
+# 3. Copy and fill env
 cp .env.example .env
 
-# 3. Start Postgres
+# 4. Start Postgres
 docker compose up -d
 
-# 4. Run migrations and generate Prisma client
+# 5. Run migrations and generate Prisma client
 npm run db:migrate
 npm run db:generate
-
-# 5. Start dev server (hot reload)
-npm run dev
 ```
+
+### Running the servers
+
+**Option A — run both together** (requires `concurrently`, already in devDependencies):
+
+```bash
+npm run dev:all
+```
+
+**Option B — run separately** (two terminal windows):
+
+```bash
+# Terminal 1 — Express API on http://localhost:3000
+npm run dev
+
+# Terminal 2 — Vite dev server on http://localhost:5173
+npm run dev:client
+```
+
+> The Vite dev server proxies all `/api` requests to `http://localhost:3000`, so the
+> frontend and backend can be developed together without CORS issues.
+
+## Frontend routes
+
+| Path | Type | Description |
+|---|---|---|
+| `/` | Public | Landing page |
+| `/login` | Public | Login form — calls `POST /api/v1/auth/login` |
+| `/register` | Public | Registration form — calls `POST /api/v1/auth/register` |
+| `/dashboard` | Protected | Requires valid JWT; redirects to `/login` if not authenticated |
 
 ## API endpoints
 
