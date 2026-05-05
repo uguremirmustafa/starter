@@ -1,0 +1,58 @@
+import { createContext, useContext, useState, useCallback } from 'react'
+import type { ReactNode } from 'react'
+
+interface User {
+  id: string
+  email: string
+  name: string
+  role: string
+}
+
+interface AuthState {
+  user: User | null
+  accessToken: string | null
+}
+
+interface AuthContextValue extends AuthState {
+  login: (accessToken: string, refreshToken: string, user: User) => void
+  logout: () => void
+  isAuthenticated: boolean
+}
+
+const AuthContext = createContext<AuthContextValue | null>(null)
+
+const ACCESS_TOKEN_KEY = 'accessToken'
+const REFRESH_TOKEN_KEY = 'refreshToken'
+
+export function AuthProvider({ children }: { children: ReactNode }) {
+  const [state, setState] = useState<AuthState>(() => {
+    const accessToken = localStorage.getItem(ACCESS_TOKEN_KEY)
+    return { user: null, accessToken }
+  })
+
+  const login = useCallback((accessToken: string, refreshToken: string, user: User) => {
+    localStorage.setItem(ACCESS_TOKEN_KEY, accessToken)
+    localStorage.setItem(REFRESH_TOKEN_KEY, refreshToken)
+    setState({ user, accessToken })
+  }, [])
+
+  const logout = useCallback(() => {
+    localStorage.removeItem(ACCESS_TOKEN_KEY)
+    localStorage.removeItem(REFRESH_TOKEN_KEY)
+    setState({ user: null, accessToken: null })
+  }, [])
+
+  return (
+    <AuthContext.Provider
+      value={{ ...state, login, logout, isAuthenticated: !!state.accessToken }}
+    >
+      {children}
+    </AuthContext.Provider>
+  )
+}
+
+export function useAuth(): AuthContextValue {
+  const ctx = useContext(AuthContext)
+  if (!ctx) throw new Error('useAuth must be used inside <AuthProvider>')
+  return ctx
+}
