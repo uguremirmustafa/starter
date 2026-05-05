@@ -1,11 +1,13 @@
-import { Link } from 'react-router-dom'
-import { useAuth } from '../../context/AuthContext'
+import { Link } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 export function Landing() {
-  const { isAuthenticated, logout } = useAuth()
+  const { isAuthenticated, logout } = useAuth();
 
   return (
-    <div style={{ maxWidth: 600, margin: '80px auto', textAlign: 'center', fontFamily: 'sans-serif' }}>
+    <div
+      style={{ maxWidth: 600, margin: '80px auto', textAlign: 'center', fontFamily: 'sans-serif' }}
+    >
       <h1>Welcome to the Starter App</h1>
       <p>A fullstack TypeScript starter with Express API and React frontend.</p>
       {isAuthenticated ? (
@@ -26,5 +28,5 @@ export function Landing() {
         </div>
       )}
     </div>
-  )
+  );
 }

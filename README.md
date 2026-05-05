@@ -4,16 +4,16 @@ A bulletproof, fully type-safe Express + Prisma API with a React + Vite + TypeSc
 
 ## Stack
 
-| Layer | Choice | Why |
-|---|---|---|
-| Runtime | Node.js + TypeScript | Full type safety end-to-end |
-| Framework | Express | Minimal, modular, battle-tested |
-| ORM | Prisma | Type-safe queries, migrations |
-| Auth | JWT + Passport Google | Stateless + social login |
-| Validation | Zod | Schema = types (no duplication) |
-| DB | PostgreSQL | Solid default for most apps |
-| Frontend | React + Vite + TypeScript | Fast HMR, type-safe UI |
-| Routing | React Router v7 | File-based routing, protected routes |
+| Layer      | Choice                    | Why                                  |
+| ---------- | ------------------------- | ------------------------------------ |
+| Runtime    | Node.js + TypeScript      | Full type safety end-to-end          |
+| Framework  | Express                   | Minimal, modular, battle-tested      |
+| ORM        | Prisma                    | Type-safe queries, migrations        |
+| Auth       | JWT + Passport Google     | Stateless + social login             |
+| Validation | Zod                       | Schema = types (no duplication)      |
+| DB         | PostgreSQL                | Solid default for most apps          |
+| Frontend   | React + Vite + TypeScript | Fast HMR, type-safe UI               |
+| Routing    | React Router v7           | File-based routing, protected routes |
 
 ## Project structure
 
@@ -97,11 +97,11 @@ npm run dev:client
 
 ## Frontend routes
 
-| Path | Type | Description |
-|---|---|---|
-| `/` | Public | Landing page |
-| `/login` | Public | Login form — calls `POST /api/v1/auth/login` |
-| `/register` | Public | Registration form — calls `POST /api/v1/auth/register` |
+| Path         | Type      | Description                                                    |
+| ------------ | --------- | -------------------------------------------------------------- |
+| `/`          | Public    | Landing page                                                   |
+| `/login`     | Public    | Login form — calls `POST /api/v1/auth/login`                   |
+| `/register`  | Public    | Registration form — calls `POST /api/v1/auth/register`         |
 | `/dashboard` | Protected | Requires valid JWT; redirects to `/login` if not authenticated |
 
 ## API endpoints
@@ -141,6 +141,7 @@ Client                    API                       Google
 ```
 
 Tokens:
+
 - **Access token** — short-lived (15 min), sent as `Authorization: Bearer <token>`
 - **Refresh token** — long-lived (7 days), stored in DB, rotated on every use
 

@@ -1,44 +1,44 @@
-import { useState } from 'react'
-import type { FormEvent } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useAuth } from '../../context/AuthContext'
+import { useState } from 'react';
+import type { FormEvent } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../context/AuthContext';
 
 export function Register() {
-  const { login } = useAuth()
-  const navigate = useNavigate()
-  const [name, setName] = useState('')
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState<string | null>(null)
-  const [loading, setLoading] = useState(false)
+  const { login } = useAuth();
+  const navigate = useNavigate();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: FormEvent) {
-    e.preventDefault()
-    setError(null)
-    setLoading(true)
+    e.preventDefault();
+    setError(null);
+    setLoading(true);
     try {
       const res = await fetch('/api/v1/auth/register', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ name, email, password }),
-      })
-      const json = await res.json()
+      });
+      const json = await res.json();
       if (!res.ok) {
-        setError(json.error ?? 'Registration failed')
-        return
+        setError(json.error ?? 'Registration failed');
+        return;
       }
-      const { accessToken, refreshToken } = json.data
+      const { accessToken, refreshToken } = json.data;
       // Fetch current user info
       const meRes = await fetch('/api/v1/auth/me', {
         headers: { Authorization: `Bearer ${accessToken}` },
-      })
-      const meJson = await meRes.json()
-      login(accessToken, refreshToken, meJson.data)
-      navigate('/dashboard')
+      });
+      const meJson = await meRes.json();
+      login(accessToken, refreshToken, meJson.data);
+      navigate('/dashboard');
     } catch {
-      setError('Network error, please try again')
+      setError('Network error, please try again');
     } finally {
-      setLoading(false)
+      setLoading(false);
     }
   }
 
@@ -82,12 +82,11 @@ export function Register() {
         </button>
       </form>
       <p>
-        Already have an account?{' '}
-        <Link to="/login">Login</Link>
+        Already have an account? <Link to="/login">Login</Link>
       </p>
       <p>
         <Link to="/">← Back to home</Link>
       </p>
     </div>
-  )
+  );
 }
