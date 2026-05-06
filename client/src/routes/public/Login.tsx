@@ -1,14 +1,17 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 
 export function Login() {
   const { login } = useAuth();
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<string | null>(
+    searchParams.get('error') === 'oauth_failed' ? 'Google login failed. Please try again.' : null,
+  );
   const [loading, setLoading] = useState(false);
 
   async function handleSubmit(e: FormEvent) {
@@ -70,6 +73,22 @@ export function Login() {
           {loading ? 'Logging in…' : 'Login'}
         </button>
       </form>
+      <hr style={{ margin: '24px 0' }} />
+      <a
+        href="/api/v1/auth/google"
+        style={{
+          display: 'block',
+          textAlign: 'center',
+          padding: '8px 16px',
+          border: '1px solid #ccc',
+          borderRadius: '4px',
+          textDecoration: 'none',
+          color: '#333',
+          fontFamily: 'sans-serif',
+        }}
+      >
+        Login with Google
+      </a>
       <p>
         Don&apos;t have an account? <Link to="/register">Register</Link>
       </p>
