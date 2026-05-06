@@ -66,13 +66,39 @@ npm install --prefix client
 # 3. Copy and fill env
 cp .env.example .env
 
-# 4. Start Postgres
+# 4. Start Postgres and pgAdmin
 docker compose up -d
 
 # 5. Run migrations and generate Prisma client
 npm run db:migrate
 npm run db:generate
 ```
+
+### pgAdmin
+
+pgAdmin is included in the Docker Compose setup for convenient database management.
+
+| Detail   | Value                                          |
+| -------- | ---------------------------------------------- |
+| URL      | <http://localhost:5050>                        |
+| Email    | `PGADMIN_DEFAULT_EMAIL` from your `.env` file  |
+| Password | `PGADMIN_DEFAULT_PASSWORD` from your `.env` file |
+
+> **Tip:** The default values in `.env.example` are `admin@admin.com` / `admin`. Update your `.env` file before running in any shared environment.
+
+**Connecting to the Postgres server from pgAdmin:**
+
+1. Open <http://localhost:5050> in your browser and log in.
+2. Right-click **Servers → Register → Server…**
+3. Fill in the **General** tab:
+   - **Name**: `starter` (or any name you prefer)
+4. Fill in the **Connection** tab:
+   - **Host name/address**: `postgres` (the Docker service name)
+   - **Port**: `5432`
+   - **Maintenance database**: `mydb` (or the value you set in `DATABASE_URL`)
+   - **Username**: `user` (or the value you set in `DATABASE_URL`)
+   - **Password**: `password` (or the value you set in `DATABASE_URL`)
+5. Click **Save**.
 
 ### Running the servers
 
