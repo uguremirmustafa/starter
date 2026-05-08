@@ -1,7 +1,8 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { useLoginMutation } from '../../hooks/auth/useLoginMutation';
+
+import { useLoginMutation } from '@/hooks/auth/useLoginMutation';
 
 export function Login() {
   const navigate = useNavigate();

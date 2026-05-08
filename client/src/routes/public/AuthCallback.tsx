@@ -1,9 +1,10 @@
 import { useEffect, useRef } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
 import { useQueryClient } from '@tanstack/react-query';
-import { useAuth } from '../../context/useAuth.ts';
-import { getMe } from '../../api/auth.api';
-import { ME_QUERY_KEY } from '../../hooks/auth/authKeys.ts';
+import { useNavigate, useSearchParams } from 'react-router-dom';
+
+import { getMe } from '@/api/auth.api';
+import { useAuth } from '@/context/useAuth.ts';
+import { ME_QUERY_KEY } from '@/hooks/auth/authKeys.ts';
 
 export function AuthCallback() {
   const { login } = useAuth();

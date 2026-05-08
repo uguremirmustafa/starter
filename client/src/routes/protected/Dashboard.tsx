@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../context/useAuth.ts';
-import { useCurrentUser } from '../../hooks/auth/useCurrentUser';
+
+import { useAuth } from '@/context/useAuth.ts';
+import { useCurrentUser } from '@/hooks/auth/useCurrentUser';
 
 export function Dashboard() {
   const { logout } = useAuth();

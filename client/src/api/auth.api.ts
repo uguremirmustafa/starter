@@ -1,5 +1,6 @@
-import type { LoginDto, RegisterDto, TokenPair, MeResponse } from '@starter/shared';
-import { apiRequest } from '../lib/apiClient';
+import type { LoginDto, MeResponse, RegisterDto, TokenPair } from '@starter/shared';
+
+import { apiRequest } from '@/lib/apiClient';
 
 export async function loginApi(dto: LoginDto): Promise<TokenPair> {
   return apiRequest<TokenPair>('/api/v1/auth/login', {

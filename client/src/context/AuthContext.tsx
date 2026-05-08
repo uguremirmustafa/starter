@@ -1,9 +1,10 @@
-import { useState, useCallback, useEffect } from 'react';
-import type { ReactNode } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { storeTokens, clearTokens, getAccessToken } from '../lib/apiClient';
-import { ME_QUERY_KEY } from '../hooks/auth/authKeys.ts';
-import { AuthContext } from './authContext.ts';
+import type { ReactNode } from 'react';
+
+import { AuthContext } from '@/context/authContext.ts';
+import { ME_QUERY_KEY } from '@/hooks/auth/authKeys.ts';
+import { clearTokens, getAccessToken, storeTokens } from '@/lib/apiClient';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [accessToken, setAccessToken] = useState<string | null>(() => getAccessToken());

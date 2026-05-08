@@ -1,5 +1,6 @@
-import type { UserDto, UpdateUserDto } from '@starter/shared';
-import { apiRequest } from '../lib/apiClient';
+import type { UpdateUserDto, UserDto } from '@starter/shared';
+
+import { apiRequest } from '@/lib/apiClient';
 
 export async function getUsers(): Promise<UserDto[]> {
   return apiRequest<UserDto[]>('/api/v1/users');

@@ -1,6 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom';
-import { useAuth } from '../context/useAuth.ts';
-import { useCurrentUser } from '../hooks/auth/useCurrentUser';
+
+import { useAuth } from '@/context/useAuth.ts';
+import { useCurrentUser } from '@/hooks/auth/useCurrentUser';
 
 export function ProtectedRoute() {
   const { isAuthenticated } = useAuth();

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../context/useAuth.ts';
+
+import { useAuth } from '@/context/useAuth.ts';
 
 export function Landing() {
   const { isAuthenticated, logout } = useAuth();

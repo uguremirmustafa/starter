@@ -1,11 +1,12 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import { AuthProvider } from './context/AuthContext';
-import { ProtectedRoute } from './components/ProtectedRoute';
-import { Landing } from './routes/public/Landing';
-import { Login } from './routes/public/Login';
-import { Register } from './routes/public/Register';
-import { AuthCallback } from './routes/public/AuthCallback';
-import { Dashboard } from './routes/protected/Dashboard';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+
+import { ProtectedRoute } from '@/components/ProtectedRoute';
+import { AuthProvider } from '@/context/AuthContext';
+import { Dashboard } from '@/routes/protected/Dashboard';
+import { AuthCallback } from '@/routes/public/AuthCallback';
+import { Landing } from '@/routes/public/Landing';
+import { Login } from '@/routes/public/Login';
+import { Register } from '@/routes/public/Register';
 
 function App() {
   return (
