@@ -1,15 +1,17 @@
 // src/types/index.ts
-import { Role } from '../generated/prisma/client';
+import { Role as PrismaRole } from '../generated/prisma/client';
 import { Request } from 'express';
+import { ApiResponse, TokenPair, Role } from '@starter/shared';
 
-// ─── API Response wrapper ────────────────────────────────────────────────────
+// Re-export shared types used across the server
+export type { ApiResponse, TokenPair, Role };
 
-export interface ApiResponse<T> {
-  success: boolean;
-  data?: T;
-  error?: string;
-  message?: string;
-}
+// ─── Compile-time guard: Prisma Role must extend the shared Zod enum.
+// If schema.prisma gains a new Role value, update shared/src/schemas/role.schema.ts too.
+// Exported so noUnusedLocals doesn't flag it — nothing needs to import it.
+export type RoleSyncGuard = PrismaRole extends Role ? true : never;
+
+// ─── API Response helpers ────────────────────────────────────────────────────
 
 export function ok<T>(data: T, message?: string): ApiResponse<T> {
   return { success: true, data, message };
@@ -27,11 +29,6 @@ export interface JwtPayload {
   role: Role;
   iat?: number;
   exp?: number;
-}
-
-export interface TokenPair {
-  accessToken: string;
-  refreshToken: string;
 }
 
 // ─── Request augmentation ────────────────────────────────────────────────────

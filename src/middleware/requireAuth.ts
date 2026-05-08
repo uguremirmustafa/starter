@@ -3,8 +3,7 @@ import { Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
 import { config } from '../config';
 import { UnauthorizedError, ForbiddenError } from '../lib/errors';
-import { JwtPayload, AuthenticatedRequest } from '../types';
-import { Role } from '../generated/prisma/enums';
+import { JwtPayload, AuthenticatedRequest, Role } from '../types';
 
 /**
  * Verifies the Bearer JWT and attaches `req.user`.

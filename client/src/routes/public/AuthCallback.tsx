@@ -1,11 +1,15 @@
 import { useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+import { useQueryClient } from '@tanstack/react-query';
+import { useAuth } from '../../context/useAuth.ts';
+import { getMe } from '../../api/auth.api';
+import { ME_QUERY_KEY } from '../../hooks/auth/authKeys.ts';
 
 export function AuthCallback() {
   const { login } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
+  const queryClient = useQueryClient();
   const handled = useRef(false);
 
   useEffect(() => {
@@ -20,18 +24,18 @@ export function AuthCallback() {
       return;
     }
 
-    fetch('/api/v1/auth/me', {
-      headers: { Authorization: `Bearer ${accessToken}` },
-    })
-      .then((res) => (res.ok ? res.json() : Promise.reject(new Error(`HTTP ${res.status}`))))
-      .then((json) => {
-        login(accessToken, refreshToken, json.data);
+    // Store tokens first so apiClient can attach the Authorization header for /me
+    login(accessToken, refreshToken);
+
+    getMe()
+      .then((user) => {
+        queryClient.setQueryData(ME_QUERY_KEY, user);
         navigate('/dashboard', { replace: true });
       })
       .catch(() => {
         navigate('/login?error=oauth_failed', { replace: true });
       });
-  }, [login, navigate, searchParams]);
+  }, [login, navigate, queryClient, searchParams]);
 
   return (
     <div style={{ maxWidth: 400, margin: '80px auto', fontFamily: 'sans-serif' }}>

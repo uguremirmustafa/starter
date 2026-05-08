@@ -1,47 +1,22 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+import { useLoginMutation } from '../../hooks/auth/useLoginMutation';
 
 export function Login() {
-  const { login } = useAuth();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(
-    searchParams.get('error') === 'oauth_failed' ? 'Google login failed. Please try again.' : null,
-  );
-  const [loading, setLoading] = useState(false);
+  const loginMutation = useLoginMutation();
 
-  async function handleSubmit(e: FormEvent) {
+  const oauthError =
+    searchParams.get('error') === 'oauth_failed' ? 'Google login failed. Please try again.' : null;
+  const error = oauthError ?? loginMutation.error?.message ?? null;
+
+  function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    setError(null);
-    setLoading(true);
-    try {
-      const res = await fetch('/api/v1/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, password }),
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        setError(json.error ?? 'Login failed');
-        return;
-      }
-      const { accessToken, refreshToken } = json.data;
-      // Fetch current user info
-      const meRes = await fetch('/api/v1/auth/me', {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
-      const meJson = await meRes.json();
-      login(accessToken, refreshToken, meJson.data);
-      navigate('/dashboard');
-    } catch {
-      setError('Network error, please try again');
-    } finally {
-      setLoading(false);
-    }
+    loginMutation.mutate({ email, password }, { onSuccess: () => navigate('/dashboard') });
   }
 
   return (
@@ -69,8 +44,8 @@ export function Login() {
           />
         </label>
         {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button type="submit" disabled={loading}>
-          {loading ? 'Logging in…' : 'Login'}
+        <button type="submit" disabled={loginMutation.isPending}>
+          {loginMutation.isPending ? 'Logging in…' : 'Login'}
         </button>
       </form>
       <hr style={{ margin: '24px 0' }} />

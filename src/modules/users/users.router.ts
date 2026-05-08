@@ -1,20 +1,15 @@
 // src/modules/users/users.router.ts
 import { Router, Request, Response, NextFunction } from 'express';
-import { z } from 'zod/v4';
 import { requireAuth, requireRole } from '../../middleware/requireAuth';
 import { validate } from '../../middleware/validate';
 import { userService } from './users.service';
 import { ok, AuthenticatedRequest, AppModule } from '../../types';
 import { idParamsSchema } from '../../lib/schemas/common.schemas';
+import { updateUserSchema, type UpdateUserDto } from '@starter/shared';
 
 const router = Router();
 
 const authGuard = requireAuth as unknown as import('express').RequestHandler;
-
-const updateSchema = z.object({
-  name: z.string().min(1).optional(),
-  avatarUrl: z.string().url().optional(),
-});
 
 // GET /users — admin only
 router.get(
@@ -52,16 +47,12 @@ router.patch(
   '/:id',
   authGuard,
   validate(idParamsSchema, 'query'),
-  validate(updateSchema),
+  validate(updateUserSchema),
   async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { id } = idParamsSchema.parse(req.params);
       const caller = (req as AuthenticatedRequest).user;
-      const updated = await userService.updateProfile(
-        id,
-        caller,
-        req.body as z.infer<typeof updateSchema>,
-      );
+      const updated = await userService.updateProfile(id, caller, req.body as UpdateUserDto);
       res.json(ok(updated));
     } catch (err) {
       next(err);

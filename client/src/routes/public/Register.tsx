@@ -1,45 +1,18 @@
 import { useState } from 'react';
 import type { FormEvent } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+import { useRegisterMutation } from '../../hooks/auth/useRegisterMutation';
 
 export function Register() {
-  const { login } = useAuth();
   const navigate = useNavigate();
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [error, setError] = useState<string | null>(null);
-  const [loading, setLoading] = useState(false);
+  const registerMutation = useRegisterMutation();
 
-  async function handleSubmit(e: FormEvent) {
+  function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    setError(null);
-    setLoading(true);
-    try {
-      const res = await fetch('/api/v1/auth/register', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, email, password }),
-      });
-      const json = await res.json();
-      if (!res.ok) {
-        setError(json.error ?? 'Registration failed');
-        return;
-      }
-      const { accessToken, refreshToken } = json.data;
-      // Fetch current user info
-      const meRes = await fetch('/api/v1/auth/me', {
-        headers: { Authorization: `Bearer ${accessToken}` },
-      });
-      const meJson = await meRes.json();
-      login(accessToken, refreshToken, meJson.data);
-      navigate('/dashboard');
-    } catch {
-      setError('Network error, please try again');
-    } finally {
-      setLoading(false);
-    }
+    registerMutation.mutate({ name, email, password }, { onSuccess: () => navigate('/dashboard') });
   }
 
   return (
@@ -76,9 +49,9 @@ export function Register() {
             style={{ display: 'block', width: '100%', marginTop: 4 }}
           />
         </label>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button type="submit" disabled={loading}>
-          {loading ? 'Registering…' : 'Register'}
+        {registerMutation.error && <p style={{ color: 'red' }}>{registerMutation.error.message}</p>}
+        <button type="submit" disabled={registerMutation.isPending}>
+          {registerMutation.isPending ? 'Registering…' : 'Register'}
         </button>
       </form>
       <p>

@@ -1,13 +1,15 @@
 import { Link } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
+import { useAuth } from '../../context/useAuth.ts';
+import { useCurrentUser } from '../../hooks/auth/useCurrentUser';
 
 export function Dashboard() {
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
+  const { data: user } = useCurrentUser();
 
   return (
     <div style={{ maxWidth: 600, margin: '80px auto', fontFamily: 'sans-serif' }}>
       <h1>Dashboard</h1>
-      <p>Welcome back{user?.name ? `, ${user.name}` : ''}!</p>
+      <p>Welcome back!</p>
       {user && (
         <ul style={{ lineHeight: 1.8 }}>
           <li>
