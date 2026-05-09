@@ -14,10 +14,7 @@ export function Register() {
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    registerMutation.mutate(
-      { name, email, password },
-      { onSuccess: () => navigate('/dashboard') },
-    );
+    registerMutation.mutate({ name, email, password }, { onSuccess: () => navigate('/dashboard') });
   }
 
   return (
@@ -26,9 +23,7 @@ export function Register() {
         <div className="panel__content">
           <StarterLogo size="md" />
           <h1 className="headline">Create Your Account</h1>
-          <p className="subhead">
-            Set up your workspace in less than a minute.
-          </p>
+          <p className="subhead">Set up your workspace in less than a minute.</p>
 
           <form onSubmit={handleSubmit} className="form">
             <label className="field">
@@ -64,9 +59,7 @@ export function Register() {
                 placeholder="Choose a strong password"
               />
             </label>
-            {registerMutation.error && (
-              <p className="error">{registerMutation.error.message}</p>
-            )}
+            {registerMutation.error && <p className="error">{registerMutation.error.message}</p>}
             <button
               type="submit"
               className="btn btn--primary"

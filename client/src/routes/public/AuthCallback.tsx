@@ -45,9 +45,7 @@ export function AuthCallback() {
         <div className="panel__content">
           <StarterLogo size="sm" />
           <h1 className="headline">Completing Login</h1>
-          <p className="subhead">
-            Verifying your account and preparing your session.
-          </p>
+          <p className="subhead">Verifying your account and preparing your session.</p>
           <div className="meta-row">
             <div className="loading-dot" aria-hidden="true" />
           </div>

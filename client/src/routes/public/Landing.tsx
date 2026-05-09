@@ -16,8 +16,8 @@ export function Landing() {
           <div className="eyebrow">Production-ready starter</div>
           <h1 className="headline">Ship features, not setup work.</h1>
           <p className="subhead">
-            Opinionated fullstack TypeScript foundation with auth, API patterns,
-            and clean module boundaries already in place.
+            Opinionated fullstack TypeScript foundation with auth, API patterns, and clean module
+            boundaries already in place.
           </p>
 
           {isAuthenticated ? (

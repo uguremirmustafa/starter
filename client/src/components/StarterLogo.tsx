@@ -10,11 +10,7 @@ const iconSizeByVariant = {
   lg: 62,
 } as const;
 
-export function StarterLogo({
-  size = 'md',
-  showWordmark = true,
-  className,
-}: StarterLogoProps) {
+export function StarterLogo({ size = 'md', showWordmark = true, className }: StarterLogoProps) {
   const iconSize = iconSizeByVariant[size];
 
   return (
@@ -37,15 +33,7 @@ export function StarterLogo({
             <stop offset="100%" stopColor="#c45d34" />
           </linearGradient>
         </defs>
-        <rect
-          x="3"
-          y="3"
-          width="58"
-          height="58"
-          rx="17"
-          fill="#f7faf6"
-          stroke="#d3dbcf"
-        />
+        <rect x="3" y="3" width="58" height="58" rx="17" fill="#f7faf6" stroke="#d3dbcf" />
         <path
           d="M16 24.2C16 18.57 20.57 14 26.2 14h11.6C43.43 14 48 18.57 48 24.2v15.6C48 45.43 43.43 50 37.8 50H26.2C20.57 50 16 45.43 16 39.8z"
           fill="url(#starter-ring)"

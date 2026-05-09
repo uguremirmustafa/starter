@@ -14,9 +14,7 @@ export function Dashboard() {
         <div className="panel__content">
           <StarterLogo size="md" />
           <h1 className="headline">Dashboard</h1>
-          <p className="subhead">
-            Welcome back. Your account session is active.
-          </p>
+          <p className="subhead">Welcome back. Your account session is active.</p>
 
           {user ? (
             <div className="profile">

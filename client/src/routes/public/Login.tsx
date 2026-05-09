@@ -13,17 +13,12 @@ export function Login() {
   const loginMutation = useLoginMutation();
 
   const oauthError =
-    searchParams.get('error') === 'oauth_failed'
-      ? 'Google login failed. Please try again.'
-      : null;
+    searchParams.get('error') === 'oauth_failed' ? 'Google login failed. Please try again.' : null;
   const error = oauthError ?? loginMutation.error?.message ?? null;
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    loginMutation.mutate(
-      { email, password },
-      { onSuccess: () => navigate('/dashboard') },
-    );
+    loginMutation.mutate({ email, password }, { onSuccess: () => navigate('/dashboard') });
   }
 
   return (
@@ -32,9 +27,7 @@ export function Login() {
         <div className="panel__content">
           <StarterLogo size="md" />
           <h1 className="headline">Welcome Back</h1>
-          <p className="subhead">
-            Continue to your workspace and API dashboard.
-          </p>
+          <p className="subhead">Continue to your workspace and API dashboard.</p>
 
           <form onSubmit={handleSubmit} className="form">
             <label className="field">
@@ -60,11 +53,7 @@ export function Login() {
               />
             </label>
             {error && <p className="error">{error}</p>}
-            <button
-              type="submit"
-              className="btn btn--primary"
-              disabled={loginMutation.isPending}
-            >
+            <button type="submit" className="btn btn--primary" disabled={loginMutation.isPending}>
               {loginMutation.isPending ? 'Logging in...' : 'Login'}
             </button>
           </form>
