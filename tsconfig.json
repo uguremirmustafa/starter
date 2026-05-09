@@ -16,7 +16,11 @@
     "noUnusedParameters": true,
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
-    "types": ["jest"]
+    "types": ["jest"],
+    "paths": {
+      "@/*": ["./src/*"],
+      "@starter/shared": ["./shared/src"]
+    }
   },
   "include": ["src/**/*", "shared/src/**/*", "jest"],
   "exclude": ["node_modules", "dist"]

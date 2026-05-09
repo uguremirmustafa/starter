@@ -1,8 +1,8 @@
 // src/modules/health/health.router.ts
 import { type Request, type Response, Router } from 'express';
 
-import { prisma } from '../../lib/prisma';
-import { type AppModule, ok } from '../../types';
+import { prisma } from '@/lib/prisma';
+import { type AppModule, ok } from '@/types';
 
 const router = Router();
 

@@ -1,7 +1,7 @@
 // src/index.ts
-import { createApp } from './app';
-import { config } from './config';
-import { prisma } from './lib/prisma';
+import { createApp } from '@/app';
+import { config } from '@/config';
+import { prisma } from '@/lib/prisma';
 
 function main() {
   const app = createApp();

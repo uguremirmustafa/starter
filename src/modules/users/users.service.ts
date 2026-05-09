@@ -1,13 +1,20 @@
 // src/modules/users/users.service.ts
 
-import { ForbiddenError, NotFoundError } from '../../lib/errors';
-import { prisma } from '../../lib/prisma';
-import type { JwtPayload } from '../../types';
+import { ForbiddenError, NotFoundError } from '@/lib/errors';
+import { prisma } from '@/lib/prisma';
+import type { JwtPayload } from '@/types';
 
 export class UserService {
   async findAll() {
     return prisma.user.findMany({
-      select: { id: true, email: true, name: true, role: true, avatarUrl: true, createdAt: true },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        avatarUrl: true,
+        createdAt: true,
+      },
       orderBy: { createdAt: 'desc' },
     });
   }
@@ -15,7 +22,14 @@ export class UserService {
   async findById(id: string) {
     const user = await prisma.user.findUnique({
       where: { id },
-      select: { id: true, email: true, name: true, role: true, avatarUrl: true, createdAt: true },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        role: true,
+        avatarUrl: true,
+        createdAt: true,
+      },
     });
     if (!user) throw new NotFoundError('User');
     return user;
@@ -34,7 +48,14 @@ export class UserService {
     return prisma.user.update({
       where: { id: targetId },
       data,
-      select: { id: true, email: true, name: true, avatarUrl: true, role: true, updatedAt: true },
+      select: {
+        id: true,
+        email: true,
+        name: true,
+        avatarUrl: true,
+        role: true,
+        updatedAt: true,
+      },
     });
   }
 

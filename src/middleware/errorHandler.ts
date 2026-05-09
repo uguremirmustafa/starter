@@ -2,9 +2,9 @@
 import type { Request, Response } from 'express';
 import { ZodError } from 'zod/v4';
 
-import { config } from '../config';
-import { AppError } from '../lib/errors';
-import { fail } from '../types';
+import { config } from '@/config';
+import { AppError } from '@/lib/errors';
+import { fail } from '@/types';
 
 export function errorHandler(err: unknown, _req: Request, res: Response): void {
   // Zod validation error

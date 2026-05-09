@@ -2,11 +2,11 @@
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
 
-import { config } from '../../config';
-import type { Role } from '../../generated/prisma/client';
-import { ConflictError, UnauthorizedError } from '../../lib/errors';
-import { prisma } from '../../lib/prisma';
-import type { JwtPayload, TokenPair } from '../../types';
+import { config } from '@/config';
+import type { Role } from '@/generated/prisma/client';
+import { ConflictError, UnauthorizedError } from '@/lib/errors';
+import { prisma } from '@/lib/prisma';
+import type { JwtPayload, TokenPair } from '@/types';
 
 const MS: Record<string, number> = { m: 60_000, h: 3_600_000, d: 86_400_000 };
 
@@ -51,7 +51,12 @@ export class AuthService {
   ): Promise<TokenPair> {
     // Upsert OAuth account → user
     let account = await prisma.oAuthAccount.findUnique({
-      where: { provider_providerUserId: { provider: 'google', providerUserId: googleId } },
+      where: {
+        provider_providerUserId: {
+          provider: 'google',
+          providerUserId: googleId,
+        },
+      },
       include: { user: true },
     });
 
@@ -95,7 +100,11 @@ export class AuthService {
   // ─── Internals ───────────────────────────────────────────────────────────
 
   private async issueTokens(userId: string, email: string, role: Role): Promise<TokenPair> {
-    const payload: Omit<JwtPayload, 'iat' | 'exp'> = { sub: userId, email, role };
+    const payload: Omit<JwtPayload, 'iat' | 'exp'> = {
+      sub: userId,
+      email,
+      role,
+    };
 
     const accessToken = jwt.sign(payload, config.JWT_SECRET, {
       expiresIn: config.JWT_EXPIRES_IN as jwt.SignOptions['expiresIn'],
@@ -106,7 +115,9 @@ export class AuthService {
     });
 
     const expiresAt = new Date(Date.now() + parseDuration(config.JWT_REFRESH_EXPIRES_IN));
-    await prisma.refreshToken.create({ data: { token: refreshToken, userId, expiresAt } });
+    await prisma.refreshToken.create({
+      data: { token: refreshToken, userId, expiresAt },
+    });
 
     return { accessToken, refreshToken };
   }

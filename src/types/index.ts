@@ -3,7 +3,7 @@
 import type { ApiResponse, Role, TokenPair } from '@starter/shared';
 import type { Request } from 'express';
 
-import type { Role as PrismaRole } from '../generated/prisma/client';
+import type { Role as PrismaRole } from '@/generated/prisma/client';
 
 // Re-export shared types used across the server
 export type { ApiResponse, Role, TokenPair };

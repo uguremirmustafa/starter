@@ -3,8 +3,8 @@
 
 import { PrismaPg } from '@prisma/adapter-pg';
 
-import { config } from '../config';
-import { PrismaClient } from '../generated/prisma/client';
+import { config } from '@/config';
+import { PrismaClient } from '@/generated/prisma/client';
 
 declare global {
   var __prisma: PrismaClient | undefined;

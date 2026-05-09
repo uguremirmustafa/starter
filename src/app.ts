@@ -7,13 +7,13 @@ import helmet from 'helmet';
 import morgan from 'morgan';
 import passport from 'passport';
 
-import { config } from './config';
-import { errorHandler } from './middleware/errorHandler';
+import { config } from '@/config';
+import { errorHandler } from '@/middleware/errorHandler';
 // Modules
-import { authModule } from './modules/auth/auth.router';
-import { healthModule } from './modules/health/health.router';
-import { usersModule } from './modules/users/users.router';
-import type { AppModule } from './types';
+import { authModule } from '@/modules/auth/auth.router';
+import { healthModule } from '@/modules/health/health.router';
+import { usersModule } from '@/modules/users/users.router';
+import type { AppModule } from '@/types';
 
 const MODULES: AppModule[] = [authModule, usersModule, healthModule];
 
@@ -36,7 +36,10 @@ export function createApp(): Application {
       max: 100,
       standardHeaders: true,
       legacyHeaders: false,
-      message: { success: false, error: 'Too many requests, please try again later' },
+      message: {
+        success: false,
+        error: 'Too many requests, please try again later',
+      },
     }),
   );
 

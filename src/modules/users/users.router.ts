@@ -3,10 +3,10 @@
 import { type UpdateUserDto, updateUserSchema } from '@starter/shared';
 import { type NextFunction, type Request, type Response, Router } from 'express';
 
-import { idParamsSchema } from '../../lib/schemas/common.schemas';
-import { requireAuth, requireRole } from '../../middleware/requireAuth';
-import { validate } from '../../middleware/validate';
-import { type AppModule, type AuthenticatedRequest, ok } from '../../types';
+import { idParamsSchema } from '@/lib/schemas/common.schemas';
+import { requireAuth, requireRole } from '@/middleware/requireAuth';
+import { validate } from '@/middleware/validate';
+import { type AppModule, type AuthenticatedRequest, ok } from '@/types';
 
 import { userService } from './users.service';
 

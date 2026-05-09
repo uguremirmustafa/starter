@@ -2,9 +2,9 @@
 import type { NextFunction, Response } from 'express';
 import jwt from 'jsonwebtoken';
 
-import { config } from '../config';
-import { ForbiddenError, UnauthorizedError } from '../lib/errors';
-import type { AuthenticatedRequest, JwtPayload, Role } from '../types';
+import { config } from '@/config';
+import { ForbiddenError, UnauthorizedError } from '@/lib/errors';
+import type { AuthenticatedRequest, JwtPayload, Role } from '@/types';
 
 /**
  * Verifies the Bearer JWT and attaches `req.user`.

@@ -13,11 +13,11 @@ import {
   type VerifyCallback,
 } from 'passport-google-oauth20';
 
-import { config } from '../../config';
-import { requireAuth } from '../../middleware/requireAuth';
-import { validate } from '../../middleware/validate';
-import type { AppModule } from '../../types';
-import { type AuthenticatedRequest, ok, type TokenPair } from '../../types';
+import { config } from '@/config';
+import { requireAuth } from '@/middleware/requireAuth';
+import { validate } from '@/middleware/validate';
+import type { AppModule } from '@/types';
+import { type AuthenticatedRequest, ok, type TokenPair } from '@/types';
 
 import {
   type LoginDto,
