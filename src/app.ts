@@ -1,19 +1,19 @@
 // src/app.ts
-import express, { Application } from 'express';
-import helmet from 'helmet';
+
 import cors from 'cors';
-import morgan from 'morgan';
+import express, { type Application } from 'express';
 import rateLimit from 'express-rate-limit';
+import helmet from 'helmet';
+import morgan from 'morgan';
 import passport from 'passport';
 
 import { config } from './config';
 import { errorHandler } from './middleware/errorHandler';
-import { AppModule } from './types';
-
 // Modules
 import { authModule } from './modules/auth/auth.router';
-import { usersModule } from './modules/users/users.router';
 import { healthModule } from './modules/health/health.router';
+import { usersModule } from './modules/users/users.router';
+import type { AppModule } from './types';
 
 const MODULES: AppModule[] = [authModule, usersModule, healthModule];
 

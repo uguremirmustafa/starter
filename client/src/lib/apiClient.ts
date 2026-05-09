@@ -58,14 +58,14 @@ export async function apiRequest<T>(url: string, options: RequestInit = {}): Pro
     'Content-Type': 'application/json',
     ...(options.headers as Record<string, string>),
   };
-  if (token) headers['Authorization'] = `Bearer ${token}`;
+  if (token) headers.Authorization = `Bearer ${token}`;
 
   const res = await fetch(url, { ...options, headers });
 
   if (res.status === 401) {
     const newToken = await attemptRefresh();
     if (newToken) {
-      headers['Authorization'] = `Bearer ${newToken}`;
+      headers.Authorization = `Bearer ${newToken}`;
       const retryRes = await fetch(url, { ...options, headers });
       if (!retryRes.ok) {
         const retryJson: ApiResponse<never> = await retryRes.json();

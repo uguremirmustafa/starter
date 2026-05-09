@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
+import { useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { getMe } from '@/api/auth.api';

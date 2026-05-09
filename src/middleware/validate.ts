@@ -1,6 +1,6 @@
 // src/middleware/validate.ts
-import { Request, Response, NextFunction } from 'express';
-import { ZodSchema } from 'zod/v4';
+import type { NextFunction, Request, Response } from 'express';
+import type { ZodSchema } from 'zod/v4';
 
 type RequestPart = 'body' | 'query' | 'params';
 

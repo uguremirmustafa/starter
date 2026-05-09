@@ -57,19 +57,16 @@ starter/
 ## Quick start
 
 ```bash
-# 1. Install API dependencies
+# 1. Install workspace dependencies (server + client + shared)
 npm install
 
-# 2. Install frontend dependencies
-npm install --prefix client
-
-# 3. Copy and fill env
+# 2. Copy and fill env
 cp .env.example .env
 
-# 4. Start Postgres and pgAdmin
+# 3. Start Postgres and pgAdmin
 docker compose up -d
 
-# 5. Run migrations and generate Prisma client
+# 4. Run migrations and generate Prisma client
 npm run db:migrate
 npm run db:generate
 ```

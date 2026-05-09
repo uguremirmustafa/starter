@@ -1,7 +1,8 @@
 // src/modules/users/users.service.ts
+
+import { ForbiddenError, NotFoundError } from '../../lib/errors';
 import { prisma } from '../../lib/prisma';
-import { NotFoundError, ForbiddenError } from '../../lib/errors';
-import { JwtPayload } from '../../types';
+import type { JwtPayload } from '../../types';
 
 export class UserService {
   async findAll() {

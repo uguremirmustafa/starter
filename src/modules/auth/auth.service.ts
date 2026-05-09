@@ -1,11 +1,12 @@
 // src/modules/auth/auth.service.ts
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';
-import { prisma } from '../../lib/prisma';
+
 import { config } from '../../config';
-import { ConflictError, UnauthorizedError } from '../../lib/errors';
-import { JwtPayload, TokenPair } from '../../types';
 import type { Role } from '../../generated/prisma/client';
+import { ConflictError, UnauthorizedError } from '../../lib/errors';
+import { prisma } from '../../lib/prisma';
+import type { JwtPayload, TokenPair } from '../../types';
 
 const MS: Record<string, number> = { m: 60_000, h: 3_600_000, d: 86_400_000 };
 

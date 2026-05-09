@@ -1,21 +1,33 @@
 // src/modules/auth/auth.router.ts
-import { Router, Request, Response, NextFunction, RequestHandler } from 'express';
-import passport from 'passport';
-import { Strategy as GoogleStrategy, Profile, VerifyCallback } from 'passport-google-oauth20';
-import { config } from '../../config';
-import { validate } from '../../middleware/validate';
-import { authService } from './auth.service';
-import { requireAuth } from '../../middleware/requireAuth';
 import {
-  registerSchema,
+  type NextFunction,
+  type Request,
+  type RequestHandler,
+  type Response,
+  Router,
+} from 'express';
+import passport from 'passport';
+import {
+  Strategy as GoogleStrategy,
+  type Profile,
+  type VerifyCallback,
+} from 'passport-google-oauth20';
+
+import { config } from '../../config';
+import { requireAuth } from '../../middleware/requireAuth';
+import { validate } from '../../middleware/validate';
+import type { AppModule } from '../../types';
+import { type AuthenticatedRequest, ok, type TokenPair } from '../../types';
+
+import {
+  type LoginDto,
   loginSchema,
+  type RefreshDto,
+  type RegisterDto,
   refreshSchema,
-  RefreshDto,
-  LoginDto,
-  RegisterDto,
+  registerSchema,
 } from './auth.schemas';
-import { ok, AuthenticatedRequest, TokenPair } from '../../types';
-import { AppModule } from '../../types';
+import { authService } from './auth.service';
 
 // ─── Passport Google strategy ────────────────────────────────────────────────
 

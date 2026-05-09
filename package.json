@@ -17,19 +17,10 @@
     "db:generate": "node --env-file=.env ./node_modules/.bin/prisma generate",
     "db:studio": "prisma studio",
     "typecheck": "tsc --noEmit",
-    "lint": "eslint src",
-    "lint:fix": "eslint src --fix",
-    "format": "prettier --write .",
+    "lint": "biome lint src client/src shared/src",
+    "lint:fix": "biome check --write src client/src shared/src",
+    "format": "biome format --write src client/src shared/src",
     "prepare": "husky"
-  },
-  "lint-staged": {
-    "src/**/*.{ts,tsx}": [
-      "eslint --fix",
-      "prettier --write"
-    ],
-    "**/*.{json,md,yml,yaml,css}": [
-      "prettier --write"
-    ]
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.7.0",
@@ -48,7 +39,7 @@
     "zod": "^4.3.6"
   },
   "devDependencies": {
-    "@eslint/js": "^10.0.1",
+    "@biomejs/biome": "^2.4.14",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.6",
     "@types/jest": "^30.0.0",
@@ -61,17 +52,12 @@
     "@types/pg": "^8.11.11",
     "@types/supertest": "^7.2.0",
     "concurrently": "^9.2.1",
-    "eslint": "^10.2.1",
-    "eslint-config-prettier": "^10.1.8",
     "husky": "^9.1.7",
     "jest": "^30.3.0",
-    "lint-staged": "^16.4.0",
-    "prettier": "^3.8.3",
     "prisma": "^7.7.0",
     "supertest": "^7.2.2",
     "ts-jest": "^29.4.9",
     "tsx": "^4.19.3",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.59.0"
+    "typescript": "^5.9.3"
   }
 }

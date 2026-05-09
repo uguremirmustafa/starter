@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
 import type { ReactNode } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 import { AuthContext } from '@/context/authContext.ts';
 import { ME_QUERY_KEY } from '@/hooks/auth/authKeys.ts';

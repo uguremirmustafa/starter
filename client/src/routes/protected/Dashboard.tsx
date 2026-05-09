@@ -23,9 +23,11 @@ export function Dashboard() {
       )}
       <div style={{ display: 'flex', gap: 12, marginTop: 24 }}>
         <Link to="/">
-          <button>Home</button>
+          <button type="button">Home</button>
         </Link>
-        <button onClick={logout}>Logout</button>
+        <button type="button" onClick={logout}>
+          Logout
+        </button>
       </div>
     </div>
   );

@@ -1,9 +1,10 @@
 // src/middleware/requireAuth.ts
-import { Response, NextFunction } from 'express';
+import type { NextFunction, Response } from 'express';
 import jwt from 'jsonwebtoken';
+
 import { config } from '../config';
-import { UnauthorizedError, ForbiddenError } from '../lib/errors';
-import { JwtPayload, AuthenticatedRequest, Role } from '../types';
+import { ForbiddenError, UnauthorizedError } from '../lib/errors';
+import type { AuthenticatedRequest, JwtPayload, Role } from '../types';
 
 /**
  * Verifies the Bearer JWT and attaches `req.user`.
@@ -11,7 +12,8 @@ import { JwtPayload, AuthenticatedRequest, Role } from '../types';
 export function requireAuth(req: AuthenticatedRequest, _res: Response, next: NextFunction): void {
   const authHeader = req.headers.authorization;
   if (!authHeader?.startsWith('Bearer ')) {
-    return next(new UnauthorizedError('Missing bearer token'));
+    next(new UnauthorizedError('Missing bearer token'));
+    return;
   }
 
   const token = authHeader.slice(7);
@@ -32,7 +34,8 @@ export function requireAuth(req: AuthenticatedRequest, _res: Response, next: Nex
 export function requireRole(...roles: Role[]) {
   return (req: AuthenticatedRequest, _res: Response, next: NextFunction): void => {
     if (!roles.includes(req.user.role)) {
-      return next(new ForbiddenError('Insufficient permissions'));
+      next(new ForbiddenError('Insufficient permissions'));
+      return;
     }
     next();
   };

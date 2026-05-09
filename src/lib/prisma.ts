@@ -1,8 +1,10 @@
 // src/lib/prisma.ts
 // Prisma 7: client is generated to src/generated/prisma, adapter-pg is required
-import { PrismaClient } from '../generated/prisma/client';
+
 import { PrismaPg } from '@prisma/adapter-pg';
+
 import { config } from '../config';
+import { PrismaClient } from '../generated/prisma/client';
 
 declare global {
   var __prisma: PrismaClient | undefined;

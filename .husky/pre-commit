@@ -1,2 +1,2 @@
-npx lint-staged
-cd client && npx lint-staged || exit 1
+npm run lint:fix
+npm run format

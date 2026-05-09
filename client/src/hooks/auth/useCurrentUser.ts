@@ -10,7 +10,7 @@ export function useCurrentUser() {
     queryKey: ME_QUERY_KEY,
     queryFn: getMe,
     enabled: isAuthenticated,
-    staleTime: Infinity,
+    staleTime: Number.POSITIVE_INFINITY,
     retry: false,
   });
 }
