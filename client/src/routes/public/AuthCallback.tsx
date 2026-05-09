@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import { getMe } from '@/api/auth.api';
+import { StarterLogo } from '@/components/StarterLogo';
 import { useAuth } from '@/context/useAuth.ts';
 import { ME_QUERY_KEY } from '@/hooks/auth/authKeys.ts';
 
@@ -39,8 +40,19 @@ export function AuthCallback() {
   }, [login, navigate, queryClient, searchParams]);
 
   return (
-    <div style={{ maxWidth: 400, margin: '80px auto', fontFamily: 'sans-serif' }}>
-      <p>Completing login…</p>
-    </div>
+    <main className="page reveal">
+      <section className="panel panel--narrow">
+        <div className="panel__content">
+          <StarterLogo size="sm" />
+          <h1 className="headline">Completing Login</h1>
+          <p className="subhead">
+            Verifying your account and preparing your session.
+          </p>
+          <div className="meta-row">
+            <div className="loading-dot" aria-hidden="true" />
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

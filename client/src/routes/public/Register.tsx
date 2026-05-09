@@ -2,6 +2,7 @@ import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
+import { StarterLogo } from '@/components/StarterLogo';
 import { useRegisterMutation } from '@/hooks/auth/useRegisterMutation';
 
 export function Register() {
@@ -13,54 +14,81 @@ export function Register() {
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    registerMutation.mutate({ name, email, password }, { onSuccess: () => navigate('/dashboard') });
+    registerMutation.mutate(
+      { name, email, password },
+      { onSuccess: () => navigate('/dashboard') },
+    );
   }
 
   return (
-    <div style={{ maxWidth: 400, margin: '80px auto', fontFamily: 'sans-serif' }}>
-      <h1>Register</h1>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <label>
-          Name
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            required
-            style={{ display: 'block', width: '100%', marginTop: 4 }}
-          />
-        </label>
-        <label>
-          Email
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={{ display: 'block', width: '100%', marginTop: 4 }}
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={{ display: 'block', width: '100%', marginTop: 4 }}
-          />
-        </label>
-        {registerMutation.error && <p style={{ color: 'red' }}>{registerMutation.error.message}</p>}
-        <button type="submit" disabled={registerMutation.isPending}>
-          {registerMutation.isPending ? 'Registering…' : 'Register'}
-        </button>
-      </form>
-      <p>
-        Already have an account? <Link to="/login">Login</Link>
-      </p>
-      <p>
-        <Link to="/">← Back to home</Link>
-      </p>
-    </div>
+    <main className="page reveal">
+      <section className="panel panel--narrow">
+        <div className="panel__content">
+          <StarterLogo size="md" />
+          <h1 className="headline">Create Your Account</h1>
+          <p className="subhead">
+            Set up your workspace in less than a minute.
+          </p>
+
+          <form onSubmit={handleSubmit} className="form">
+            <label className="field">
+              Name
+              <input
+                type="text"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="input"
+                placeholder="Jane Doe"
+              />
+            </label>
+            <label className="field">
+              Email
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="input"
+                placeholder="you@company.com"
+              />
+            </label>
+            <label className="field">
+              Password
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="input"
+                placeholder="Choose a strong password"
+              />
+            </label>
+            {registerMutation.error && (
+              <p className="error">{registerMutation.error.message}</p>
+            )}
+            <button
+              type="submit"
+              className="btn btn--primary"
+              disabled={registerMutation.isPending}
+            >
+              {registerMutation.isPending ? 'Registering...' : 'Register'}
+            </button>
+          </form>
+
+          <div className="meta-row">
+            <span className="muted">Already have an account?</span>
+            <Link to="/login" className="link-btn">
+              Login
+            </Link>
+          </div>
+          <div className="meta-row">
+            <Link to="/" className="link-btn">
+              Back to home
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

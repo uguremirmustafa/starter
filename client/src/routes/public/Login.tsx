@@ -2,6 +2,7 @@ import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
+import { StarterLogo } from '@/components/StarterLogo';
 import { useLoginMutation } from '@/hooks/auth/useLoginMutation';
 
 export function Login() {
@@ -12,65 +13,79 @@ export function Login() {
   const loginMutation = useLoginMutation();
 
   const oauthError =
-    searchParams.get('error') === 'oauth_failed' ? 'Google login failed. Please try again.' : null;
+    searchParams.get('error') === 'oauth_failed'
+      ? 'Google login failed. Please try again.'
+      : null;
   const error = oauthError ?? loginMutation.error?.message ?? null;
 
   function handleSubmit(e: FormEvent) {
     e.preventDefault();
-    loginMutation.mutate({ email, password }, { onSuccess: () => navigate('/dashboard') });
+    loginMutation.mutate(
+      { email, password },
+      { onSuccess: () => navigate('/dashboard') },
+    );
   }
 
   return (
-    <div style={{ maxWidth: 400, margin: '80px auto', fontFamily: 'sans-serif' }}>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-        <label>
-          Email
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            required
-            style={{ display: 'block', width: '100%', marginTop: 4 }}
-          />
-        </label>
-        <label>
-          Password
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-            style={{ display: 'block', width: '100%', marginTop: 4 }}
-          />
-        </label>
-        {error && <p style={{ color: 'red' }}>{error}</p>}
-        <button type="submit" disabled={loginMutation.isPending}>
-          {loginMutation.isPending ? 'Logging in…' : 'Login'}
-        </button>
-      </form>
-      <hr style={{ margin: '24px 0' }} />
-      <a
-        href="/api/v1/auth/google"
-        style={{
-          display: 'block',
-          textAlign: 'center',
-          padding: '8px 16px',
-          border: '1px solid #ccc',
-          borderRadius: '4px',
-          textDecoration: 'none',
-          color: '#333',
-          fontFamily: 'sans-serif',
-        }}
-      >
-        Login with Google
-      </a>
-      <p>
-        Don&apos;t have an account? <Link to="/register">Register</Link>
-      </p>
-      <p>
-        <Link to="/">← Back to home</Link>
-      </p>
-    </div>
+    <main className="page reveal">
+      <section className="panel panel--narrow">
+        <div className="panel__content">
+          <StarterLogo size="md" />
+          <h1 className="headline">Welcome Back</h1>
+          <p className="subhead">
+            Continue to your workspace and API dashboard.
+          </p>
+
+          <form onSubmit={handleSubmit} className="form">
+            <label className="field">
+              Email
+              <input
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                className="input"
+                placeholder="you@company.com"
+              />
+            </label>
+            <label className="field">
+              Password
+              <input
+                type="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                required
+                className="input"
+                placeholder="Enter your password"
+              />
+            </label>
+            {error && <p className="error">{error}</p>}
+            <button
+              type="submit"
+              className="btn btn--primary"
+              disabled={loginMutation.isPending}
+            >
+              {loginMutation.isPending ? 'Logging in...' : 'Login'}
+            </button>
+          </form>
+
+          <hr className="divider" />
+          <a href="/api/v1/auth/google" className="btn btn--ghost">
+            Continue with Google
+          </a>
+          <div className="meta-row">
+            <span className="muted">Need an account?</span>
+            <Link to="/register" className="link-btn">
+              Register
+            </Link>
+          </div>
+          <div className="meta-row">
+            <Link to="/" className="link-btn">
+              Back to home
+            </Link>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }

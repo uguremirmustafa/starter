@@ -1,0 +1,32 @@
+<svg width="1600" height="512" viewBox="0 0 1600 512" fill="none" xmlns="http://www.w3.org/2000/svg"
+  role="img" aria-label="Starter logo">
+  <defs>
+    <linearGradient id="ringGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#2EA36C" />
+      <stop offset="100%" stop-color="#1F6F4A" />
+    </linearGradient>
+    <linearGradient id="flameGradient" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#EA8A56" />
+      <stop offset="100%" stop-color="#C45D34" />
+    </linearGradient>
+  </defs>
+
+  <g transform="translate(16,16)">
+    <rect x="0" y="0" width="480" height="480" rx="140" fill="#F7FAF6" stroke="#D3DBCF"
+      stroke-width="10" />
+    <path
+      d="M108 177.1C108 130.56 145.56 93 192.1 93h95.8C334.44 93 372 130.56 372 177.1v127.8C372 351.44 334.44 389 287.9 389h-95.8C145.56 389 108 351.44 108 304.9z"
+      fill="url(#ringGradient)" />
+    <path
+      d="M240 136.8c55.31 0 100.2 44.89 100.2 100.2S295.31 337.2 240 337.2 139.8 292.31 139.8 237 184.69 136.8 240 136.8m0 25.6c-41.2 0-74.6 33.4-74.6 74.6s33.4 74.6 74.6 74.6 74.6-33.4 74.6-74.6-33.4-74.6-74.6-74.6"
+      fill="#EFF6EF" />
+    <path d="m237.6 165.3 71.8 71.7-71.8 71.8-17.9-17.9 54-53.9-54-53.6z" fill="url(#flameGradient)" />
+  </g>
+
+  <g transform="translate(560,152)">
+    <text x="0" y="120" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="168"
+      font-weight="700" fill="#243025" letter-spacing="-2">Starter</text>
+    <text x="4" y="188" font-family="Segoe UI, Arial, Helvetica, sans-serif" font-size="42"
+      font-weight="600" fill="#5D6B60" letter-spacing="8">FULLSTACK TYPESCRIPT KIT</text>
+  </g>
+</svg>

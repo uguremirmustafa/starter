@@ -2,6 +2,8 @@
 
 A bulletproof, fully type-safe Express + Prisma API with a React + Vite + TypeScript frontend.
 
+![Project Banner](./client/public/banner.png)
+
 ## Stack
 
 | Layer      | Choice                    | Why                                  |

@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
 
+import { StarterLogo } from '@/components/StarterLogo';
 import { useAuth } from '@/context/useAuth.ts';
 import { useCurrentUser } from '@/hooks/auth/useCurrentUser';
 
@@ -8,27 +9,40 @@ export function Dashboard() {
   const { data: user } = useCurrentUser();
 
   return (
-    <div style={{ maxWidth: 600, margin: '80px auto', fontFamily: 'sans-serif' }}>
-      <h1>Dashboard</h1>
-      <p>Welcome back!</p>
-      {user && (
-        <ul style={{ lineHeight: 1.8 }}>
-          <li>
-            <strong>Email:</strong> {user.email}
-          </li>
-          <li>
-            <strong>Role:</strong> {user.role}
-          </li>
-        </ul>
-      )}
-      <div style={{ display: 'flex', gap: 12, marginTop: 24 }}>
-        <Link to="/">
-          <button type="button">Home</button>
-        </Link>
-        <button type="button" onClick={logout}>
-          Logout
-        </button>
-      </div>
-    </div>
+    <main className="page reveal">
+      <section className="panel">
+        <div className="panel__content">
+          <StarterLogo size="md" />
+          <h1 className="headline">Dashboard</h1>
+          <p className="subhead">
+            Welcome back. Your account session is active.
+          </p>
+
+          {user ? (
+            <div className="profile">
+              <div className="profile__item">
+                <span className="muted">Email</span>
+                <span>{user.email}</span>
+              </div>
+              <div className="profile__item">
+                <span className="muted">Role</span>
+                <span>{user.role}</span>
+              </div>
+            </div>
+          ) : null}
+
+          <div className="button-row">
+            <Link to="/">
+              <button type="button" className="btn">
+                Home
+              </button>
+            </Link>
+            <button type="button" className="btn btn--ghost" onClick={logout}>
+              Logout
+            </button>
+          </div>
+        </div>
+      </section>
+    </main>
   );
 }
