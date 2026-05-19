@@ -1,13 +1,14 @@
 {
   "name": "ts-api-starter",
   "version": "1.0.0",
-  "description": "Bulletproof TypeScript REST API starter",
+  "description": "Skool",
   "main": "dist/src/index.js",
   "workspaces": [
     "client",
     "shared"
   ],
   "scripts": {
+    "init": "node scripts/init.js",
     "dev": "tsx --env-file=.env --watch src/index.ts",
     "dev:client": "npm run dev --prefix client",
     "dev:all": "concurrently \"npm run dev\" \"npm run dev:client\"",

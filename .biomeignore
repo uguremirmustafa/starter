@@ -5,3 +5,4 @@ client/node_modules/**
 dist/**
 client/dist/**
 src/generated/**
+scripts
