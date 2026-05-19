@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-const { readFileSync, writeFileSync, renameSync, existsSync } = require('fs');
+const { readFileSync, writeFileSync, existsSync } = require('fs');
 const { resolve } = require('path');
 const { createInterface } = require('readline');
 
@@ -23,14 +23,6 @@ function toTitleCase(kebab) {
     .split('-')
     .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
     .join(' ');
-}
-
-/** "my-app" → "MyApp" */
-function toPascalCase(kebab) {
-  return kebab
-    .split('-')
-    .map((w) => w.charAt(0).toUpperCase() + w.slice(1))
-    .join('');
 }
 
 /**
@@ -72,7 +64,6 @@ async function main() {
   }
 
   const title = toTitleCase(name); // "My App"
-  const pascal = toPascalCase(name); // "MyApp"
 
   console.log(`\nInitializing "${title}"...\n`);
 
@@ -91,44 +82,7 @@ async function main() {
   // 4. client/index.html — page title
   replaceInFile('client/index.html', [['<title>Starter</title>', `<title>${title}</title>`]]);
 
-  // 5. StarterLogo component — CSS classes, gradient IDs, aria-label, wordmark, type name
-  replaceInFile('client/src/components/StarterLogo.tsx', [
-    ['StarterLogoProps', `${pascal}LogoProps`],
-    ['StarterLogo', `${pascal}Logo`],
-    ['starter-ring', `${name}-ring`],
-    ['starter-flame', `${name}-flame`],
-    ['starter-logo', `${name}-logo`],
-    ['"Starter logo"', `"${title} logo"`],
-    ['>Starter<', `>${title}<`],
-  ]);
-
-  // Rename the component file
-  const oldLogoFile = resolve(ROOT, 'client/src/components/StarterLogo.tsx');
-  const newLogoFile = resolve(ROOT, `client/src/components/${pascal}Logo.tsx`);
-  if (existsSync(oldLogoFile) && oldLogoFile !== newLogoFile) {
-    renameSync(oldLogoFile, newLogoFile);
-    console.log(`  ✓  Renamed StarterLogo.tsx → ${pascal}Logo.tsx`);
-  }
-
-  // 6. Update all files that import StarterLogo
-  const logoImporters = [
-    'client/src/routes/public/Landing.tsx',
-    'client/src/routes/public/Login.tsx',
-    'client/src/routes/public/Register.tsx',
-    'client/src/routes/public/AuthCallback.tsx',
-    'client/src/routes/protected/Dashboard.tsx',
-  ];
-  for (const f of logoImporters) {
-    replaceInFile(f, [
-      [`@/components/StarterLogo`, `@/components/${pascal}Logo`],
-      [`StarterLogo`, `${pascal}Logo`],
-    ]);
-  }
-
-  // 7. index.css — logo CSS classes
-  replaceInFile('client/src/index.css', [['starter-logo', `${name}-logo`]]);
-
-  // 8. README.md — top heading
+  // 5. README.md — top heading
   replaceInFile('README.md', [['# TypeScript Fullstack Starter', `# ${title}`]]);
 
   console.log(`

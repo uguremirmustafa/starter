@@ -2,7 +2,7 @@ import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
-import { StarterLogo } from '@/components/StarterLogo';
+import { AppLogo } from '@/components/AppLogo';
 import { useRegisterMutation } from '@/hooks/auth/useRegisterMutation';
 
 export function Register() {
@@ -21,7 +21,7 @@ export function Register() {
     <main className="page reveal">
       <section className="panel panel--narrow">
         <div className="panel__content">
-          <StarterLogo size="md" />
+          <AppLogo size="md" />
           <h1 className="headline">Create Your Account</h1>
           <p className="subhead">Set up your workspace in less than a minute.</p>
 

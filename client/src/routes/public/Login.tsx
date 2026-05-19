@@ -2,7 +2,7 @@ import type { FormEvent } from 'react';
 import { useState } from 'react';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 
-import { StarterLogo } from '@/components/StarterLogo';
+import { AppLogo } from '@/components/AppLogo';
 import { useLoginMutation } from '@/hooks/auth/useLoginMutation';
 
 export function Login() {
@@ -25,7 +25,7 @@ export function Login() {
     <main className="page reveal">
       <section className="panel panel--narrow">
         <div className="panel__content">
-          <StarterLogo size="md" />
+          <AppLogo size="md" />
           <h1 className="headline">Welcome Back</h1>
           <p className="subhead">Continue to your workspace and API dashboard.</p>
 

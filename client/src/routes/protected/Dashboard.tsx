@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { StarterLogo } from '@/components/StarterLogo';
+import { AppLogo } from '@/components/AppLogo';
 import { useAuth } from '@/context/useAuth.ts';
 import { useCurrentUser } from '@/hooks/auth/useCurrentUser';
 
@@ -12,7 +12,7 @@ export function Dashboard() {
     <main className="page reveal">
       <section className="panel">
         <div className="panel__content">
-          <StarterLogo size="md" />
+          <AppLogo size="md" />
           <h1 className="headline">Dashboard</h1>
           <p className="subhead">Welcome back. Your account session is active.</p>
 

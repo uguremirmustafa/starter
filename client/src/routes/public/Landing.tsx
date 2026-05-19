@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { StarterLogo } from '@/components/StarterLogo';
+import { AppLogo } from '@/components/AppLogo';
 import { useAuth } from '@/context/useAuth.ts';
 
 export function Landing() {
@@ -11,7 +11,7 @@ export function Landing() {
       <section className="panel">
         <div className="panel__content">
           <div>
-            <StarterLogo size="lg" />
+            <AppLogo size="lg" />
           </div>
           <div className="eyebrow">Production-ready starter</div>
           <h1 className="headline">Ship features, not setup work.</h1>
